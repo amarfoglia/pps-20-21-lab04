@@ -1,21 +1,37 @@
 package u04lab.code
 
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.{assertFalse, assertNotEquals, fail}
+import org.junit.jupiter.api.Assertions.{assertEquals, assertFalse, assertNotEquals, assertTrue, fail}
 
 class ComplexTest {
-  val complex = new ComplexImpl(5.3, -1)
+  val oneComplex: Complex = Complex(1, 1)
+  val zeroComplex: Complex = Complex(0, 0)
 
   @Test
-  def testEqualityFailure(): Unit = {
-    val complex2 = new ComplexImpl(5.3, -1)
-    assertFalse(complex.equals(complex2))
-    assertFalse(complex == complex2)
-    assertFalse(complex.eq(complex2))
+  def testEquality(): Unit = {
+    val complex2 = Complex(1, 1)
+    assertTrue(oneComplex.equals(complex2))
+    assertTrue(oneComplex == complex2)
+    assertFalse(oneComplex.eq(complex2))
   }
 
   @Test
-  def testToStringFailure(): Unit = {
-    assertNotEquals(s"${complex.re} ${complex.im}i", complex.toString)
+  def testToString(): Unit = {
+    assertEquals(s"ComplexImpl(${oneComplex.re},${oneComplex.im})", oneComplex.toString)
   }
+
+  @Test
+  def testSum(): Unit = {
+    assertEquals(Complex(2, 2), oneComplex + oneComplex)
+    assertEquals(oneComplex, oneComplex + zeroComplex)
+    assertEquals(zeroComplex, oneComplex + Complex(-1, -1))
+  }
+
+  @Test
+  def testMultiplication(): Unit = {
+    assertEquals(Complex(0, 2), oneComplex * oneComplex)
+    assertEquals(Complex(2, 0), oneComplex * Complex(1, -1))
+    assertEquals(Complex(-2, 0),oneComplex * Complex(-1, 1))
+    assertEquals(Complex(0, 0), oneComplex * zeroComplex)
+  }/
 }

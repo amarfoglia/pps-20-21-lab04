@@ -8,7 +8,13 @@ trait Complex {
 }
 
 object Complex {
-  def apply(re:Double, im:Double):Complex = ??? // Fill here
+  def apply(re:Double, im:Double):Complex = new ComplexImpl(re, im);
+
+  private case class ComplexImpl(override val re: Double, override val im: Double) extends Complex {
+    override def +(c: Complex): Complex = Complex(re + c.re, im + c.im)
+
+    override def *(c: Complex): Complex = Complex(re * c.re - im * c.im, re * c.im + im * c.re)
+  }
 }
 
 object TryComplex extends App {
@@ -25,8 +31,3 @@ object TryComplex extends App {
   * - use a case class ComplexImpl instead, creating objects without the 'new' keyword
   * - check equality and toString now
   */
-class ComplexImpl(override val re: Double, override val im: Double) extends Complex {
-  override def +(c: Complex): Complex = ???
-
-  override def *(c: Complex): Complex = ???
-}
