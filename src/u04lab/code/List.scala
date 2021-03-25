@@ -71,10 +71,17 @@ object Lists extends App {
 
     def length(l: List[_]): Int = ???
 
+    @tailrec
     def contains[A](l: List[A])(elem: A): Boolean = l match {
-      case Cons(x, _) if(x == elem) => true
+      case Cons(x, _) if x == elem => true
       case Cons(_, t) => contains(t)(elem)
       case _ => false
+    }
+
+    import Streams.Stream
+    def toStream[A](l: List[A]): Stream[A] = l match {
+      case Cons(h, t) => Stream.cons(h, toStream(t))
+      case _ => Stream.Empty()
     }
   }
 
