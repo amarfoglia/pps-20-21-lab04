@@ -28,10 +28,10 @@ class ComplexTest {
   }
 
   @Test
-  def testMultiplication(): Unit = {
+  def testProduct(): Unit = {
     assertEquals(Complex(0, 2), oneComplex * oneComplex)
     assertEquals(Complex(2, 0), oneComplex * Complex(1, -1))
     assertEquals(Complex(-2, 0),oneComplex * Complex(-1, 1))
     assertEquals(Complex(0, 0), oneComplex * zeroComplex)
-  }/
+  }
 }
