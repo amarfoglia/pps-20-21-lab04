@@ -48,4 +48,35 @@ class PowerIteratorsTest {
 
     assertEquals(pi.allSoFar(), Cons(b1, Cons(b2, Cons(b3, Cons(b4, Nil()))))) // ho prodotto proprio b1,b2,b3,b4
   }
+
+  @Test
+  def optionalTestReversedOnList(): Unit = {
+    val pi = factory.fromList(Cons("a", Cons("b", Cons("c", Nil()))))
+    assertEquals(pi.next(), Option.of("a"))
+    assertEquals(pi.next(), Option.of("b"))
+    val pi2 = pi.reversed() //pi2 itera su b,a
+    assertEquals(pi.next(), Option.of("c")) // c viene prodotto da pi normalmente
+    assertTrue(Option.isEmpty(pi.next()))
+
+    assertEquals(pi2.next(), Option.of("b"))
+    assertEquals(pi2.next(), Option.of("a"))
+    assertEquals(pi2.allSoFar(), Cons("b", Cons("a", Nil()))) // pi2 ha prodotto b,a
+    assertTrue(Option.isEmpty(pi2.next()))
+  }
+
+  @Test
+  def optionalTestReversedOnIncremental(): Unit = {
+    val pi = factory.incremental(0, (x) => x + 1) // 0,1,2,3,...
+    assertEquals(pi.next(), Option.of(0))
+    assertEquals(pi.next(), Option.of(1))
+    assertEquals(pi.next(), Option.of(2))
+    assertEquals(pi.next(), Option.of(3))
+    val pi2 = pi.reversed() // pi2 itera su 3,2,1,0
+    assertEquals(pi2.next(), Option.of(3))
+    assertEquals(pi2.next(), Option.of(2))
+    val pi3 = pi2.reversed() // pi2 ha prodotto 3,2 in passato, quindi pi3 itera su 2,3
+    assertEquals(pi3.next(), Option.of(2))
+    assertEquals(pi3.next(), Option.of(3))
+    assertTrue(Option.isEmpty(pi3.next()))
+  }
 }
