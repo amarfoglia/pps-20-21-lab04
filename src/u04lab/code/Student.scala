@@ -24,7 +24,7 @@ object Student {
 
     override def enrolling(course: Course): Unit = _courses = Cons(course, _courses)
 
-    override def courses: List[String] = ???
+    override def courses: List[String] = List.map(_courses)(_.name)
 
     override def hasTeacher(teacher: String): Boolean = ???
   }
