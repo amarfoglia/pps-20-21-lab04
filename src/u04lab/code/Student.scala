@@ -26,7 +26,7 @@ object Student {
 
     override def courses: List[String] = List.map(_courses)(_.name)
 
-    override def hasTeacher(teacher: String): Boolean = ???
+    override def hasTeacher(teacher: String): Boolean = List.contains(List.map(_courses)(_.teacher))(teacher)
   }
 }
 
