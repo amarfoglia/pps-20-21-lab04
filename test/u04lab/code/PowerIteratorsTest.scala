@@ -23,4 +23,15 @@ class PowerIteratorsTest {
     }
     assertEquals(Option.of(33), pi.next()); // sono arrivato a 33
   }
+
+  @Test
+  def testFromList(): Unit = {
+    val pi = factory.fromList(Cons("a", Cons("b", Cons("c", Nil())))) // pi produce a,b,c
+    assertEquals(pi.next(), Option.of("a"))
+    assertEquals(pi.next(), Option.of("b"))
+    assertEquals(pi.allSoFar(), Cons("a", Cons("b", Nil()))) // fin qui a,b
+    assertEquals(pi.next(), Option.of("c"))
+    assertEquals(pi.allSoFar(), Cons("a", Cons("b", Cons("c", Nil())))) // fin qui a,b,c
+    assertTrue(Option.isEmpty(pi.next())) // non c'è più niente da produrre
+  }
 }

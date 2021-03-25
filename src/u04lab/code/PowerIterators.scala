@@ -34,7 +34,7 @@ object PowerIterator {
 trait PowerIteratorsFactory {
 
   def incremental(start: Int, successive: Int => Int): PowerIterator[Int]
-  def fromList[A](list: List[A])
+  def fromList[A](list: List[A]): PowerIterator[A]
   def randomBooleans(size: Int): PowerIterator[Boolean]
 }
 
@@ -43,7 +43,7 @@ class PowerIteratorsFactoryImpl extends PowerIteratorsFactory {
   override def incremental(start: Int, successive: Int => Int): PowerIterator[Int] =
     PowerIterator(Stream.iterate(start)(successive))
 
-  override def fromList[A](list: List[A]): Unit = ???
+  override def fromList[A](list: List[A]): PowerIterator[A] = PowerIterator(List.toStream(list))
 
   override def randomBooleans(size: Int): PowerIterator[Boolean] = ???
 }
