@@ -34,4 +34,18 @@ class PowerIteratorsTest {
     assertEquals(pi.allSoFar(), Cons("a", Cons("b", Cons("c", Nil())))) // fin qui a,b,c
     assertTrue(Option.isEmpty(pi.next())) // non c'è più niente da produrre
   }
+
+  @Test
+  def testRandom(): Unit = {
+    val pi = factory.randomBooleans(4) // pi produce 4 booleani random
+    val b1 = Option.get(pi.next())
+    val b2 = Option.get(pi.next())
+    val b3 = Option.get(pi.next())
+    val b4 = Option.get(pi.next())
+    System.out.println(b1 + " " + b2 + " " + b3 + " " + b4) // stampo a video.. giusto per vedere se sono proprio random..
+
+    assertTrue(Option.isEmpty(pi.next())) // ne ho già prodotti 4, quindi il prossimo è un opzionale vuoto
+
+    assertEquals(pi.allSoFar(), Cons(b1, Cons(b2, Cons(b3, Cons(b4, Nil()))))) // ho prodotto proprio b1,b2,b3,b4
+  }
 }
