@@ -25,3 +25,8 @@ object TryComplex extends App {
   * - use a case class ComplexImpl instead, creating objects without the 'new' keyword
   * - check equality and toString now
   */
+class ComplexImpl(override val re: Double, override val im: Double) extends Complex {
+  override def +(c: Complex): Complex = ???
+
+  override def *(c: Complex): Complex = ???
+}
