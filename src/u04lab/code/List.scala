@@ -1,5 +1,7 @@
 package u04lab.code
 
+import Optionals._
+
 import scala.annotation.tailrec
 
 object Lists extends App {
@@ -26,6 +28,7 @@ object Lists extends App {
       case _ => l2
     }
 
+    @tailrec
     def drop[A](l: List[A], n: Int): List[A] = l match {
       case _ if n<=0 || l==Nil() => l
       case Cons(h,t) => drop(t,n-1)
@@ -84,6 +87,23 @@ object Lists extends App {
     def toStream[A](l: List[A]): Stream[A] = l match {
       case Cons(h, t) => Stream.cons(h, toStream(t))
       case _ => Stream.Empty()
+    }
+
+    @tailrec
+    def allMatch[A](l: List[A])(p: A => Boolean): Boolean = l match {
+      case Cons(h, Nil()) if p(h) => true
+      case Cons(h, t) if p(h) => allMatch(t)(p)
+      case _ => false
+    }
+
+    def allEquals[A](l: List[A]): Option[A] = l match {
+      case Cons(h, t) if allMatch(l)(_ == h) => Option.Some(h)
+      case _ => Option.empty
+    }
+
+    def head[A](l: List[A]): Option[A] = l match {
+      case Cons(h, _) => Option.of(h)
+      case _ => Option.empty
     }
   }
 

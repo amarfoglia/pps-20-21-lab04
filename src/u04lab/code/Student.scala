@@ -36,6 +36,11 @@ object Course {
   private case class CourseImpl(name: String, teacher: String) extends Course
 }
 
+object sameTeacher {
+  def unapply(courses: List[Course]): Option[String] =
+    Optionals.Option.toScalaOption(List.allEquals(List.map(courses)(_.teacher)))
+}
+
 object Try extends App {
   val cPPS = Course("PPS","Viroli")
   val cPCD = Course("PCD","Ricci")
