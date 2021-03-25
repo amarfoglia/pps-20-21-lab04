@@ -1,12 +1,12 @@
 package u04lab.code
 
-import u04lab.code.Lists.List.Cons
+import u04lab.code.Lists.List.{Cons, append}
 import u04lab.code.Lists._ // import custom List type (not the one in Scala stdlib)
 
 trait Student {
   def name: String
   def year: Int
-  def enrolling(course: Course): Unit // the student participates to a Course
+  def enrolling(coursesToEnroll: Course*): Unit // the student participates to a Course
   def courses: List[String] // names of course the student participates to
   def hasTeacher(teacher: String): Boolean // is the student participating to a course of this teacher?
 }
@@ -22,7 +22,7 @@ object Student {
   private case class StudentImpl(name: String, year: Int) extends Student {
     private var _courses: List[Course] = List.Nil()
 
-    override def enrolling(course: Course): Unit = _courses = Cons(course, _courses)
+    override def enrolling(coursesToEnroll: Course*): Unit = coursesToEnroll.foreach(c => _courses = Cons(c, _courses))
 
     override def courses: List[String] = List.map(_courses)(_.name)
 
